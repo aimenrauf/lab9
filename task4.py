@@ -11,6 +11,15 @@ class TreeNode:
         for child in self.children:
             child.display(level + 1)
 
+    def depth(self, target, length=0):
+        if self.data == target:
+            return length
+        for child in self.children:
+            count = child.depth(target, length + 1)
+            if count != -1:
+                return count
+        return -1 
+
 root = TreeNode("Root")
 child1 = TreeNode("Child1")
 child2 = TreeNode("Child2")
@@ -25,5 +34,5 @@ child2.add_child(TreeNode("GrandChild2"))
 child3.add_child(TreeNode("GrandChild3"))
 
 root.display()
-
-print(f"Number of direct root child: {len(root.children)}")
+depth = root.depth("GrandChild2")
+print(f"Depth of GrandChild2: {depth}")
